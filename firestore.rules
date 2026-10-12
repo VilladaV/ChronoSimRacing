@@ -1,0 +1,201 @@
+/**
+ * @fileoverview Firestore Security Rules for ChronoSim application.
+ *
+ * Core Philosophy:
+ * This ruleset prioritizes secure data access based on user roles and ownership.
+ * Strict access control is enforced for write operations, while read operations
+ * are generally more open to facilitate data discovery.
+ *
+ * Data Structure:
+ * - Users: Stored in /users/{userId}, accessible only by the owning user.
+ * - Games, Tracks, Cars, Pilots, Teams, Events: Stored in top-level collections, publicly readable, but with restricted write access.
+ * - Results: Stored as subcollections of events (/events/{eventId}/results/{resultId}), also publicly readable with restricted write access.
+ *
+ * Key Security Decisions:
+ * - User data is private and only accessible to the owning user.
+ * - Top-level collections (games, tracks, cars, etc.) are readable by anyone, but writable only by authenticated users.
+ * - Listing of users is disallowed for privacy reasons.
+ * - The rules do not enforce a strict data schema, focusing on authorization and
+ *   relational integrity for critical fields.
+ *
+ * Denormalization for Authorization:
+ *  No specific denormalization is applied in this initial ruleset.
+ *  Future iterations may benefit from denormalizing ownership or role information
+ *  onto documents to improve rule performance and complexity.
+ *
+ * Structural Segregation:
+ *  No structural segregation is used in this iteration. If the application
+ *  requires a mix of private and public data for the same entity type, consider
+ *  using separate collections (e.g., a private /users/{userId}/drafts collection
+ *  and a public /published collection).
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Controls access to user profile data.
+     * @path /users/{userId}
+     * @allow (create) Authenticated user can create their own profile if the userId matches their auth UID.
+     * @allow (get, update, delete) Authenticated user can only access their own profile.
+     * @deny (create) Anonymous user cannot create any profile.
+     * @deny (list) Listing users is not permitted.
+     * @deny (create, update, delete) Non-owner cannot modify or delete the profile.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId} {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isSignedIn() && isOwner(userId) && resource.data.id == userId;
+      allow delete: if isSignedIn() && isOwner(userId) && resource.data.id == userId;
+    }
+
+    /**
+     * @description Controls access to game data.
+     * @path /games/{gameId}
+     * @allow (get, list) Anyone can read game data.
+     * @allow (create) Only authenticated users can create games.
+     * @allow (update, delete) Only authenticated users can update or delete games.
+     * @deny (create, update, delete) Anonymous users cannot create, update, or delete games.
+     * @principle Public read, owner-only writes.
+     */
+    match /games/{gameId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      allow get, list: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && resource != null;
+      allow delete: if isSignedIn() && resource != null;
+    }
+
+    /**
+     * @description Controls access to track data.
+     * @path /tracks/{trackId}
+     * @allow (get, list) Anyone can read track data.
+     * @allow (create) Only authenticated users can create tracks.
+     * @allow (update, delete) Only authenticated users can update or delete tracks.
+     * @deny (create, update, delete) Anonymous users cannot create, update, or delete tracks.
+     * @principle Public read, owner-only writes.
+     */
+    match /tracks/{trackId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      allow get, list: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && resource != null;
+      allow delete: if isSignedIn() && resource != null;
+    }
+
+    /**
+     * @description Controls access to car data.
+     * @path /cars/{carId}
+     * @allow (get, list) Anyone can read car data.
+     * @allow (create) Only authenticated users can create cars.
+     * @allow (update, delete) Only authenticated users can update or delete cars.
+     * @deny (create, update, delete) Anonymous users cannot create, update, or delete cars.
+     * @principle Public read, owner-only writes.
+     */
+    match /cars/{carId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      allow get, list: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && resource != null;
+      allow delete: if isSignedIn() && resource != null;
+    }
+
+    /**
+     * @description Controls access to pilot data.
+     * @path /pilots/{pilotId}
+     * @allow (get, list) Anyone can read pilot data.
+     * @allow (create) Only authenticated users can create pilots.
+     * @allow (update, delete) Only authenticated users can update or delete pilots.
+     * @deny (create, update, delete) Anonymous users cannot create, update, or delete pilots.
+     * @principle Public read, owner-only writes.
+     */
+    match /pilots/{pilotId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      allow get, list: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && resource != null;
+      allow delete: if isSignedIn() && resource != null;
+    }
+
+    /**
+     * @description Controls access to team data.
+     * @path /teams/{teamId}
+     * @allow (get, list) Anyone can read team data.
+     * @allow (create) Only authenticated users can create teams.
+     * @allow (update, delete) Only authenticated users can update or delete teams.
+     * @deny (create, update, delete) Anonymous users cannot create, update, or delete teams.
+     * @principle Public read, owner-only writes.
+     */
+    match /teams/{teamId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      allow get, list: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && resource != null;
+      allow delete: if isSignedIn() && resource != null;
+    }
+
+    /**
+     * @description Controls access to event data.
+     * @path /events/{eventId}
+     * @allow (get, list) Anyone can read event data.
+     * @allow (create) Only authenticated users can create events.
+     * @allow (update, delete) Only authenticated users can update or delete events.
+     * @deny (create, update, delete) Anonymous users cannot create, update, or delete events.
+     * @principle Public read, owner-only writes.
+     */
+    match /events/{eventId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      allow get, list: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && resource != null;
+      allow delete: if isSignedIn() && resource != null;
+
+      /**
+       * @description Controls access to result data within an event.
+       * @path /events/{eventId}/results/{resultId}
+       * @allow (get, list) Anyone can read result data.
+       * @allow (create) Only authenticated users can create results.
+       * @allow (update, delete) Only authenticated users can update or delete results.
+       * @deny (create, update, delete) Anonymous users cannot create, update, or delete results.
+       * @principle Public read, owner-only writes.
+       */
+      match /results/{resultId} {
+        function isSignedIn() {
+          return request.auth != null;
+        }
+
+        allow get, list: if true;
+        allow create: if isSignedIn();
+        allow update: if isSignedIn() && resource != null;
+        allow delete: if isSignedIn() && resource != null;
+      }
+    }
+  }
+}

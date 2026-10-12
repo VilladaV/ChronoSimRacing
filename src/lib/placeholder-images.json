@@ -1,0 +1,52 @@
+{
+  "placeholderImages": [
+    {
+      "id": "pilot-1",
+      "description": "Portrait of a confident racing pilot.",
+      "imageUrl": "https://images.unsplash.com/photo-1738647941424-ed80a2f9a01d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cmFjaW5nJTIwcGlsb3R8ZW58MHx8fHwxNzU5NjIwMDc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "racing pilot"
+    },
+    {
+      "id": "pilot-2",
+      "description": "Portrait of a focused racing pilot.",
+      "imageUrl": "https://images.unsplash.com/photo-1677440478148-6c7a775f497b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyYWNpbmclMjBwaWxvdHxlbnwwfHx8fDE3NTk2MjAwNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "racing pilot"
+    },
+    {
+      "id": "pilot-3",
+      "description": "Portrait of a determined racing pilot.",
+      "imageUrl": "https://images.unsplash.com/photo-1738647954202-240e350c3e4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyYWNpbmclMjBwaWxvdHxlbnwwfHx8fDE3NTk2MjAwNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "racing pilot"
+    },
+    {
+      "id": "pilot-4",
+      "description": "Portrait of a young racing pilot.",
+      "imageUrl": "https://images.unsplash.com/photo-1677440503120-92cbfb4abba0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxyYWNpbmclMjBwaWxvdHxlbnwwfHx8fDE3NTk2MjAwNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "racing pilot"
+    },
+    {
+      "id": "pilot-5",
+      "description": "Portrait of a veteran racing pilot.",
+      "imageUrl": "https://images.unsplash.com/photo-1677440459911-cb0332b0ed8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyYWNpbmclMjBwaWxvdHxlbnwwfHx8fDE3NTk2MjAwNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "racing pilot"
+    },
+    {
+      "id": "game-assetto-corsa",
+      "description": "Red racing car on a track.",
+      "imageUrl": "https://images.unsplash.com/photo-1587573983358-b3b81469b35e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhc3NldHRvJTIwY29yc2F8ZW58MHx8fHwxNzE3NTk5MTI4fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "assetto corsa"
+    },
+    {
+      "id": "game-beamng",
+      "description": "Car driving off-road in a desert.",
+      "imageUrl": "https://images.unsplash.com/photo-1568285577120-ac264353805c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiZWFtbmclMjBkcml2ZXxlbnwwfHx8fDE3E3NjAwMTM0fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "beamng drive"
+    },
+    {
+      "id": "game-rally",
+      "description": "Rally car on a dirt road.",
+      "imageUrl": "https://images.unsplash.com/photo-1580274454314-8c4543793c18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyYWxseXxlbnwwfHx8fDE3MTc2MDAxODB8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "rally"
+    }
+  ]
+}
